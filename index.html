@@ -278,25 +278,27 @@
             </div>
 
             <!-- Contenedor de Navegación -->
-            <nav class="flex flex-row gap-2 w-full lg:w-auto justify-center lg:justify-end flex-nowrap items-center overflow-x-auto">
-                <button onclick="navigate('dashboard')" class="text-xs sm:text-sm font-semibold p-2 rounded-lg transition-colors hover:bg-gray-100 flex-1 sm:flex-none text-center" id="nav-dashboard">Inicio</button>
-                <button onclick="navigate('clients')" class="text-xs sm:text-sm font-semibold p-2 rounded-lg transition-colors hover:bg-gray-100 flex-1 sm:flex-none text-center" id="nav-clients">Clientes</button>
-                <button onclick="navigate('payments')" class="text-xs sm:text-sm font-semibold p-2 rounded-lg transition-colors hover:bg-gray-100 flex-1 sm:flex-none text-center" id="nav-payments">Pagos</button>
-                <button onclick="navigate('tasks')" class="text-xs sm:text-sm font-semibold p-2 rounded-lg transition-colors hover:bg-gray-100 flex-1 sm:flex-none text-center" id="nav-tasks">Tareas</button>
-                
-                <div class="h-6 w-px bg-gray-300 mx-1"></div>
+            <nav class="flex flex-wrap gap-y-2 gap-x-2 w-full lg:w-auto justify-center lg:justify-end items-center">
+                <div class="flex flex-row gap-1 sm:gap-2 overflow-x-auto w-full sm:w-auto justify-center sm:justify-start pb-1 sm:pb-0">
+                    <button onclick="navigate('dashboard')" class="text-xs sm:text-sm font-semibold p-2 rounded-lg transition-colors hover:bg-gray-100 flex-1 sm:flex-none text-center whitespace-nowrap" id="nav-dashboard">Inicio</button>
+                    <button onclick="navigate('clients')" class="text-xs sm:text-sm font-semibold p-2 rounded-lg transition-colors hover:bg-gray-100 flex-1 sm:flex-none text-center whitespace-nowrap" id="nav-clients">Clientes</button>
+                    <button onclick="navigate('payments')" class="text-xs sm:text-sm font-semibold p-2 rounded-lg transition-colors hover:bg-gray-100 flex-1 sm:flex-none text-center whitespace-nowrap" id="nav-payments">Pagos</button>
+                    <button onclick="navigate('tasks')" class="text-xs sm:text-sm font-semibold p-2 rounded-lg transition-colors hover:bg-gray-100 flex-1 sm:flex-none text-center whitespace-nowrap" id="nav-tasks">Tareas</button>
+                </div>
 
-                <button onclick="openUserManagementPanel()" class="text-xs sm:text-sm font-semibold p-2 rounded-lg transition-colors bg-blue-50 text-blue-600 hover:bg-blue-100 ml-1" title="Gestión de Usuarios">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
-                    </svg>
-                </button>
-                
-                <button onclick="logout()" class="text-xs sm:text-sm font-semibold p-2 rounded-lg transition-colors bg-red-50 text-red-500 hover:bg-red-100 ml-1" title="Cerrar Sesión">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                    </svg>
-                </button>
+                <div class="flex items-center gap-2 border-t sm:border-t-0 sm:border-l border-gray-200 pt-2 sm:pt-0 sm:pl-2 w-full sm:w-auto justify-center">
+                    <button onclick="openUserManagementPanel()" class="text-xs sm:text-sm font-semibold p-2 rounded-lg transition-colors bg-blue-50 text-blue-600 hover:bg-blue-100" title="Gestión de Usuarios">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    
+                    <button onclick="logout()" class="text-xs sm:text-sm font-semibold p-2 rounded-lg transition-colors bg-red-50 text-red-500 hover:bg-red-100" title="Cerrar Sesión">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                    </button>
+                </div>
             </nav>
         </header>
 
@@ -2589,7 +2591,9 @@ import {
             `;
         };
 
-        const renderClientsList = (searchTerm = '') => {
+        
+            
+           const renderClientsList = (searchTerm = '') => {
             const container = document.getElementById('clients');
             if (!container) return;
             
@@ -2600,6 +2604,9 @@ import {
                 (c.dni && c.dni.includes(finalSearchTerm)) ||
                 (c.expedientes || []).some(e => e.toLowerCase().includes(finalSearchTerm.toLowerCase()))
             );
+
+            // NUEVO: Calculamos Total
+            const totalClientsCount = filteredClients.length;
 
             const clientRows = filteredClients.map(client => {
                 const { paidCount, progressPercent } = calculatePaymentInfo(client);
@@ -2622,10 +2629,10 @@ import {
                     <li onclick="openClientDetail('${client.id}', 'clients')" class="card p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between cursor-pointer hover:bg-gray-50 transition-all duration-300 transform hover:scale-[1.01] mb-2 gap-3">
                         <div class="flex-1 min-w-0 w-full">
                             <div class="flex flex-col items-start sm:flex-row sm:items-center gap-2">
-                                <p class="text-lg font-semibold text-[var(--primary-color)]">${client.fullName}</p>
+                                <p class="text-lg font-semibold text-[var(--primary-color)] whitespace-normal break-words">${client.fullName}</p>
                                 <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded whitespace-nowrap">DNI: ${client.dni || 'N/A'}</span>
                             </div>
-                            <p class="text-sm text-gray-500 break-words whitespace-normal mt-1">Exp: ${(client.expedientes || []).join(', ') || 'N/A'}</p>
+                            <p class="text-sm text-gray-500 whitespace-normal break-words mt-1">Exp: ${(client.expedientes || []).join(', ') || 'N/A'}</p>
                             <div class="mt-1 text-xs text-gray-500 flex flex-wrap gap-2">
                                 ${client.phone ? `<span class="flex items-center gap-1">📞 ${client.phone}</span>` : ''}
                                 ${client.email ? `<span class="flex items-center gap-1">✉️ ${client.email}</span>` : ''}
@@ -2663,6 +2670,10 @@ import {
                         <button onclick="openAddEditClientPanel()" class="action-btn px-4 py-2 text-sm w-full sm:w-auto">+ Agregar Cliente</button>
                     </div>
 
+                    <div class="bg-blue-50 border border-blue-200 text-[var(--primary-color)] px-4 py-3 rounded-lg font-bold text-center sm:text-left shadow-sm">
+                        Total Clientes Registrados: ${totalClientsCount}
+                    </div>
+
                     <div class="mb-4">
                         <input type="text" id="client-search-input" value="${finalSearchTerm}" oninput="searchClients(this.value)" placeholder="Buscar por Nombre, DNI o Expediente..."
                             class="w-full p-3 border border-gray-300 rounded-lg shadow-sm transition-shadow">
@@ -2681,7 +2692,7 @@ import {
                 input.value = '';
                 input.value = val;
             }
-        };
+        }; 
 
         window.searchClients = (searchTerm) => {
             renderClientsList(searchTerm);
@@ -2816,11 +2827,11 @@ import {
                     return `
                     <div class="bg-white p-3 mb-2 rounded shadow-sm border-l-4 ${borderClass} flex justify-between items-start group hover:shadow-md transition-all">
                         <div class="flex-1 min-w-0 pr-2">
-                            <p class="text-gray-800 text-sm font-medium break-words leading-tight ${isCompleted ? 'line-through text-gray-400' : ''}">${t.description}</p>
+                            <p class="text-gray-800 text-sm font-medium whitespace-normal break-words leading-tight ${isCompleted ? 'line-through text-gray-400' : ''}">${t.description}</p>
                             <div class="flex flex-wrap items-center gap-2 mt-1.5">
                                 <span class="text-[10px] uppercase font-bold text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded">${t.assignee}</span>
-                                ${t.relatedTo ? `<span class="text-[10px] text-gray-600 bg-blue-50 px-1.5 py-0.5 rounded truncate max-w-[100px]" title="${t.relatedTo}">Ref: ${t.relatedTo}</span>` : ''}
-                                ${dateDisplay ? `<span class="text-[10px] ${dateColorClass} bg-white border border-gray-100 px-1.5 py-0.5 rounded shadow-sm">${dateDisplay}</span>` : ''}
+                                ${t.relatedTo ? `<span class="text-[10px] text-gray-600 bg-blue-50 px-1.5 py-0.5 rounded break-all max-w-full" title="${t.relatedTo}">Ref: ${t.relatedTo}</span>` : ''}
+                                ${dateDisplay ? `<span class="text-[10px] ${dateColorClass} bg-white border border-gray-100 px-1.5 py-0.5 rounded shadow-sm whitespace-nowrap">${dateDisplay}</span>` : ''}
                             </div>
                             ${isCompleted ? `<p class="text-[10px] text-gray-400 mt-1">Listo: ${new Date(t.completedAt).toLocaleString()}</p>` : ''}
                         </div>
@@ -2855,7 +2866,7 @@ import {
                                     </select>
                                 </div>
                                 <div class="w-1/2 xl:w-36">
-                                    <label class="text-xs font-bold text-gray-500 ml-1">Para cuando</label>
+                                    <label class="text-xs font-bold text-gray-500 ml-1">Fecha Límite</label>
                                     <input type="date" id="task-duedate-input" class="w-full p-2 border rounded-lg bg-white text-sm">
                                 </div>
                             </div>
@@ -3026,7 +3037,7 @@ import {
             if (document.getElementById('client-detail-expedientes')) document.getElementById('client-detail-expedientes').textContent = (client.expedientes || []).join(', ');
             if (document.getElementById('client-notes')) document.getElementById('client-notes').value = client.notes || '';
 
-            if (document.getElementById('plan-units')) document.getElementById('plan-units').textContent = safeDisplayValue(totalUnits.toString().replace('.', ','), 'raw'); // Use raw because it might not be currency
+            if (document.getElementById('plan-units')) document.getElementById('plan-units').textContent = safeDisplayValue(totalUnits.toString().replace('.', ','), 'raw'); 
             if (document.getElementById('plan-unit-type')) document.getElementById('plan-unit-type').textContent = unit;
             
             const fixedDisplay = document.getElementById('plan-extra-fixed-display');
@@ -3046,8 +3057,9 @@ import {
                 document.getElementById('plan-partner-name').textContent = partnerName ? `(${partnerName})` : '';
             }
             
-            // PROTEGIDO VISIBLE
+            // PROTEGIDO VISIBLE (Arriba en el resumen)
             if (document.getElementById('plan-quota-value-ars')) document.getElementById('plan-quota-value-ars').textContent = safeDisplayValue(quotaValueArs, 'quota');
+            
             const progressIndicator = document.getElementById('progress-indicator');
             const progressRing = document.getElementById('progress-ring-container');
             const circleColor = (totalQuotas > 0 && progressPercent === 100) ? 'stroke-green-500' : (totalQuotas > 0) ? 'stroke-red-500' : 'stroke-gray-400';
@@ -3067,8 +3079,13 @@ import {
                         const statusText = isPaid ? 'Pagada' : 'Pendiente';
                         const paidDate = isPaid && quota.paidDate ? new Date(quota.paidDate).toLocaleDateString('es-AR', { timeZone: 'UTC' }) : 'N/A';
                         
-                        // Lógica de protección de montos
+                        // LÓGICA DE PROTECCIÓN (AQUÍ ESTÁ EL CAMBIO)
                         let valueDisplay = `${quotaValueUnits.toFixed(2).replace('.', ',')} ${unit} ${fixedAmount > 0 ? '+ Extra' : ''} (${formatCurrency(quotaValueArs)})`;
+                        
+                        // SI NO ES ADMIN, OCULTAMOS ESTA LÍNEA
+                        if (!isAdminUser()) {
+                            valueDisplay = "****";
+                        }
 
                         const startDate = client.paymentPlan.startMonth ? new Date(client.paymentPlan.startMonth + '-02T12:00:00Z') : null;
                         let monthYear = '';
@@ -3139,6 +3156,11 @@ import {
                     
                     let valueDisplay = `${quotaValueUnits.toFixed(2).replace('.', ',')} ${unit} (${formatCurrency(quotaValueArs)})`;
                     
+                    // SEGURIDAD: OCULTAR SI NO ES ADMIN
+                    if (!isAdminUser()) {
+                        valueDisplay = "****";
+                    }
+
                     const startDate = plan.paymentPlan.startMonth ? new Date(plan.paymentPlan.startMonth + '-02T12:00:00Z') : null;
                     let monthYear = '';
                     if (startDate) {
@@ -3168,7 +3190,6 @@ import {
                 }).join('');
             }
         };
-
         document.addEventListener('DOMContentLoaded', () => {
             setupFirebase();
         });
